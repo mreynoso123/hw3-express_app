@@ -5,31 +5,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
-    <title>Document</title>
+    <title>Characters</title>
 </head>
 
-<body>
-    <%- include('partials/navbar')%>
-        Characters Page
+    <body>
+        <%- include('partials/navbar') %>
+        <h1>Characters Page</h1>
+
+        <form method="POST" action="/characterSearch">
+            <input type="text" name="name" placeholder="Search character by name">
+            <button type="submit">Search</button>
+        </form>
+
+        <% if (isSearch) { %>
+            <h2>Search Results for "<%= searchTerm %>"</h2>
+        <% } %>
+
+        <% if (typeof count !== 'undefined') { %>
+            <h2>Total Characters: <%= count %></h2>
+        <% } %>
+
+        <% if (!isSearch && typeof currentPage !== 'undefined' && typeof pages !== 'undefined') { %>
+            <h3>Page <%= currentPage %> of <%= pages %></h3>
+        <% } %>
+
+        <% if (characters.length === 0) { %>
+            <p>No characters found.</p>
+        <% } %>
+
         <div>
-            <form action="/characterSearch" method="POST">
-                <input type="text" name="name" placeholder="Search for a character">
-                <button>Search</button>
-            </form><br>
-            <div>
-                <%characters.forEach(character=> {%>
+            <% characters.forEach((character, index) => { %>
+                <div>
                     <img src="<%= character.image %>" alt="<%= character.name %>">
-                    <h3><%= character.name %></h3>
+
+                    <h3>
+                        <% if (!isSearch) { %>
+                            <%= (currentPage - 1) * 20 + index + 1 %>.
+                        <% } else { %>
+                            <%= index + 1 %>.
+                        <% } %>
+                        <%= character.name %>
+                    </h3>
+
                     <p>Status: <%= character.status %></p>
                     <p>Species: <%= character.species %></p>
                     <p>Gender: <%= character.gender %></p>
                     <p>Origin: <%= character.origin.name %></p>
                     <p>Current Location: <%= character.location.name %></p>
-                    <p># of Episodes: <%= character.episode.length%></p>
-                <% }) %>
+                    <p>Number of Episodes: <%= character.episode.length %></p>
+                </div>
+                <hr>
+            <% }) %>
+        </div>
+
+        <% if (!isSearch) { %>
+            <div>
+                <% if (prevPage) { %>
+                    <a href="/characters?page=<%= prevPage %>">Previous</a>
+                <% } %>
+
+                <% if (nextPage) { %>
+                    <a href="/characters?page=<%= nextPage %>">Next</a>
+                <% } %>
             </div>
+        <% } %>
+
+        <%- include('partials/footer') %>
+    </body>
+
+
+<!-- <body>
+    <%- include('partials/navbar')%>
+        Characters Page
+        <div>
+            <form action="/characterSearch" method="POST">
+                <input type="text" name="name" placeholder="Search character by name">
+                <button>Search</button>
+            </form><br>
+            
+            <% if (typeof count !== 'undefined') { %>
+                <h2>Total Characters: <%= count %></h2>
+
+            <% } %>
+            
+            <% if (typeof currentPage !== 'undefined' && typeof pages !== 'undefined') { %>
+                <h3>Page <%= currentPage %> of <%= pages %></h3>
+            <% } %>
+
+            <div>
+                simple boolean if prevPage equals true from data.info.prev ? holding a value in index.mjs
+                <% if (prevPage) { %> 
+                    <a href="/characters?page=<%= prevPage %>">Previous</a>
+                <% } %>
+
+                <% if (nextPage) { %>
+                    <a href="/characters?page=<%= nextPage %>">Next</a>
+                <% } %>
+            </div>
+
+            <% characters.forEach((character, index)=> { %>
+                <h3>
+                    <% if (typeof currentPage !== 'undefined') { %>
+                        <%= (currentPage - 1) * 20 + index + 1 %>. 
+                    <% } else { %>
+                        <%= index + 1 %>.
+                    <% } %>
+                    <%= character.name %>
+                </h3>
+                <img src="<%= character.image %>" alt="<%= character.name %>">
+                <p>Status: <%= character.status %></p>
+                <p>Species: <%= character.species %></p>
+            <% }) %>
+
+            <div>
+                <% if (prevPage) { %>
+                    <a href="/characters?page=<%= prevPage %>">Previous</a>
+                <% } %>
+
+                <% if (nextPage) { %>
+                    <a href="/characters?page=<%= nextPage %>">Next</a>
+                <% } %>
+            </div>
+            
         </div>
         <%- include('partials/footer')%>
-</body>
+</body> -->
 
 </html>
