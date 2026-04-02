@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Episodes</title>
+</head>
+<body>
+    <%- include('partials/navbar')%>
+    Total Episodes: <%= count%>
+    <div>
+        <%episodes.forEach(episode=> {%>
+        <h3><%= episode.id %>. <%= episode.name %></h3>
+        <p>Air Date: <%= episode.air_date %></p>
+        <p>Episode: <%= episode.episode %></p>
+        <p>URL: <a href="<%= episode.url %>"><%= episode.url %></a></p>
+        <% }) %>
+    </div>
+    <%- include('partials/footer')%>
+</body>
+</html>
