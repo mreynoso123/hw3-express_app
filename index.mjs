@@ -249,6 +249,9 @@ app.get('/locations', async (req, res) => {
 app.get('/about', (req, res) => {
     res.render("about")
 });
+app.listen(3000, () => {
+    console.log(`Express server running here: http://localhost:3000`)
+})
 
 function randomWords() {
     return generate({ exactly: 5, join: ', ' });
