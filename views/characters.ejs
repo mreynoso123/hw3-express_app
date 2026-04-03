@@ -33,6 +33,18 @@
             <p>No characters found.</p>
         <% } %>
 
+        <% if (!isSearch) { %>
+            <div>
+                <% if (prevPage) { %>
+                    <a href="/characters?page=<%= prevPage %>">Previous</a>
+                <% } %>
+
+                <% if (nextPage) { %>
+                    <a href="/characters?page=<%= nextPage %>">Next</a>
+                <% } %>
+            </div>
+        <% } %>
+
         <div>
             <% characters.forEach((character, index) => { %>
                 <div>

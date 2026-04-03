@@ -10,13 +10,15 @@
 
 <body>
     <%- include('partials/navbar')%>
-        Total Locations: <%= count%>
+    <h1>Locations Page</h1>
+        Total Locations: <%= count%> <br>
+        I'm only displaying the first 20
         <div>
             <%locations.forEach(location=> {%>
                 <h3><%= location.id %>. <%= location.name %></h3>
                 <p>Type: <%= location.type %></p>
                 <p>Dimension: <%= location.dimension %></p>
-                <p>URL: <%= location.url %></p>
+                <p>URL: <a href="<%= location.url %>"><%= location.url %></a></p>
             <% }) %>
         </div>
         <%- include('partials/footer')%>
